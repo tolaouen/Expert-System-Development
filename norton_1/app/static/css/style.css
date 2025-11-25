@@ -1,0 +1,11 @@
+body {
+    background-color: white;
+}
+
+main.container {
+    max-width: 960px;
+}
+.table td, 
+.table th {
+    vertical-align: middle;
+}

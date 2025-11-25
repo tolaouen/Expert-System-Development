@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2> {{ 'New Rule'if mode == 'new'else 'Edit Rule' + rule.id}} </h2>
+<form method="post" class="mt-3">
+    {% if mode == 'new' %}
+    <div class="mb-3">
+        <label class="form-label">ID</label>
+        <input name="id" class="form-control" placeholder="r10" required>
+    </div>
+    {% else %}
+    <!-- ID  -->
+    <div class="mb-3">
+        <label class="form-label">ID</label>
+        <input class="form-control" value="{{rule.id}}" disabled>
+    </div>
+    <!-- Conditions -->
+    <div class="md-3">
+        <label class="form-label" > Conditions (comma-separated fact IDs)</label>
+        <input name="conditions" class="form-control" value="{{rule.conditions | join(', ')if rule else ''}}" placeholder="f1, f2" required>
+    </div>
+    <!-- Conclusion -->
+    <div class="md-3">
+        <label class="form-label">Conclusion</label>
+        <input name="conclusion" class="form-control" value="{{rule.conclusion if rule else ''}}" placeholder="flu" required>
+    </div>
+    <!-- Certainty -->
+    <div class="md-3">
+        <label class="form-label">Certainty (0.1)</label>
+        <input name="certainty" class="form-control" value="{{rule.certainty if rule and rule.certainty is not none else 1.0}}" type="number" step="0.01" min="0" max="1">
+    </div>
+    <!-- Explain -->
+     <div class="md-3">
+        <label class="form-label">Explain (Option)</label>
+        <textarea name="explain" class="form-control" rows="3">
+            {{rule.explain if rule else ''}}
+        </textarea>
+    </div>
+    <!-- submit and save -->
+     <div class="mb-3">
+        <a href="{{ url_for('rules_list')}}" class="btn btn-outline-secondary">Cancel</a>
+        <button class="btn btn-primary" type="submit">Save</button>
+     </div>
+</form>
+{% endblock %}

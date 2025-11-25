@@ -1,0 +1,9 @@
+{
+    "parent": {
+        "f1": "high_temperature",
+        "f2": "respiratory_symptom",
+        "f3": "general_malaise",
+        "high_temperature": "vital_abnormality",
+        "respiratory_symptom": "respiratory_issue"
+    }
+}

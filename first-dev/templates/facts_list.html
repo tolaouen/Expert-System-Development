@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ 'New Fact' if mode == 'new' else 'Edit Fact ' + fact.id }}</h2>
+<form method="post" class="mt-3">
+  {% if mode == 'new' %}
+  <div class="mb-3">
+    <label class="form-label">ID</label>
+    <input name="id" class="form-control" placeholder="f6" required>
+</div>
+  {% else %}
+  <div class="mb-3">
+    <label class="form-label">ID</label>
+    <input class="form-control" value="{{ fact.id }}" disabled>
+</div>
+{% endif %}
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <input name="description" class="form-control" value="{{ fact.description if fact else '' }}" placeholder="Patient has fever">
+</div>
+  <div class="form-check form-switch mb-3">
+    <input class="form-check-input" type="checkbox" name="value" id="valueSwitch" {% if fact and fact.value%}checked{% endif %}>
+<label class="form-check-label" for="valueSwitch">
+  
+    Value is true
+</label>
+</div>
+  <div class="mb-3">
+    <label class="form-label">Tags (comma-separated)</label>
+    <input name="tags" class="form-control" value="{{ fact.tags | join(', ') if fact else '' }}" placeholder="symptom, observed">
+</div>
+  <div class="mt-3">
+    <a href="{{ url_for('facts_list') }}" class="btn btn-outline-secondary">Cancel</a>
+    <button class="btn btn-primary" type="submit">Save</button>
+  </div>
+</form>
+{% endblock %}

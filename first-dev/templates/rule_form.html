@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Rules</h2>
+  <a class="btn btn-primary" href="{{ url_for('rules_new') }}">New Rule</a>
+</div>
+<table class="table table-striped align-middle">
+<thead> <tr>
+      <th>ID</th>
+      <th>Conditions</th>
+      <th>Conclusion</th>
+      <th>Certainty</th>
+      <th style="width: 160px;"></th>
+    </tr>
+  </thead>
+<tbody>
+    {% for r in rules %}
+    <tr>
+      <td><code>{{ r.id }}</code></td>
+      <td>{{ r.conditions | join(', ') }}</td>
+      <td>{{ r.conclusion }}</td>
+      <td>{{ '%.2f'|format(r.certainty if r.certainty is not none else 1.0) }}</td>
+      <td class="text-end">
+        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('rules_edit', rid=r.id) }}">Edit</a>
+ 
+  
+<form method="post" action="{{ url_for('rules_delete', rid=r.id) }}" class="d-inline" onsubmit="return confirm('Delete rule {{ r.id }}?');">
+          <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+        </form>
+      </td>
+</tr>
+{% else %}
+    <tr>
+      <td colspan="5" class="text-center text-muted">No rules yet.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

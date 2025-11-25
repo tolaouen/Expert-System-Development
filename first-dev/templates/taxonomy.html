@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Taxonomy</h2>
+<p class="text-muted">This is a simple raw editor for
+<code>taxonomy.json</code>. Provide a JSON object like
+<code>{"parent": {"child": "parent"}}</code>.</p>
+
+<form method="post" class="mt-2">
+    <div class="mb-3">
+         <label class="form-label">Raw JSON</label>
+         <textarea name="raw_json" rows="14" class="form-control" spellcheck="false">{{ (raw_override if raw_override is defined else taxonomy | tojson(indent=2)) }}</textarea>
+    </div> 
+    <div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('taxonomy_view') }}">Reset</a>
+</div>
+</form>
+{% endblock %}

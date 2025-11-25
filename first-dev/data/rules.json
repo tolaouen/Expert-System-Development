@@ -1,0 +1,33 @@
+[
+    {
+        "id": "r1",
+        "conditions": [
+            "f1",
+            "f2"
+        ],
+        "conclusion": "flu",
+        "certainty": 0.8,
+        "explain": "Fever and Cough suggest influenza."
+    },
+    {
+        "id": "r2",
+        "conditions": [
+            "f2",
+            "f4"
+        ],
+        "conclusion": "common_cold",
+        "certainty": 0.6,
+        "explain": "Cough with fatigue often indicates a cold."
+    },
+    {
+        "id": "r3",
+        "conditions": [
+            "f3",
+            "f5"
+        ],
+        "conclusion": "migraine",
+        "certainty": 0.5,
+        "explain": "Headache with sore throat may indicate migraine or related conditions."
+    }
+    
+]
