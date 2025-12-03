@@ -28,32 +28,32 @@ class UserCreateForm(FlaskForm):
     username = StringField(
         "Username",
         validators=[DataRequired(), Length(min=3, max=20)],
-        render_kw={"placeholder": "Enter your username"}
-    ), 
+        render_kw={"placeholder": "Enter your username"},
+    )
     email = StringField(
         "Email",
         validators=[DataRequired(), Email()],
-        render_kw={"placeholder": "Enter your email"}
-    ),
+        render_kw={"placeholder": "Enter your email"},
+    )
     full_name = StringField(
         "Full Name",
         validators=[DataRequired(), Length(min=3, max=120)],
-        render_kw={"placeholder": "Enter your full name"}
-    ),
+        render_kw={"placeholder": "Enter your full name"},
+    )
     is_active = BooleanField(
         "Is Active",
-        default=True
-    ),
+        default=True,
+    )
     password = PasswordField(
         "Password",
         validators=[DataRequired(), strong_password],
-        render_kw={"placeholder": "Enter your password"}
-    ),
+        render_kw={"placeholder": "Enter your password"},
+    )
     confirm_password = PasswordField(
         "Confirm Password",
-        validators=[DataRequired(), EqualTo("password")],
-        render_kw={"placeholder": "Confirm your password"}
-    ),
+        validators=[DataRequired(), EqualTo("password", message="Passwords must match.")],
+        render_kw={"placeholder": "Confirm your password"},
+    )
     submit = SubmitField("Save")
 
     def validate_username(self, field):
@@ -90,12 +90,12 @@ class UserEditForm(FlaskForm):
     password = PasswordField(
         "Password",
         validators=[strong_password],
-        render_kw="placeholder: New strong password (option1)"
+        render_kw={"placeholder": "New strong password (optional)"},
     )
 
-    comfirm_password = PasswordField(
-        "Comfirm Password",
-        validators=[EqualTo("Password", message="Passwords must match.")]
+    confirm_password = PasswordField(
+        "Confirm Password",
+        validators=[EqualTo("password", message="Passwords must match.")],
     )
     submit = SubmitField("Update")
 

@@ -1,10 +1,10 @@
-{{ form.hidden_tags() }}
+{{ form.hidden_tag() }}
 
-<div class="mg-3">
-    {{ form.username.label(class="form-label")}}
-    {{ form.username.(class="form-control")}}
+<div class="mb-3">
+    {{ form.username.label(class="form-label") }}
+    {{ form.username(class="form-control") }}
     {% if form.username.errors %}
-    <div class="text-dager small">
+    <div class="text-danger small">
         {% for error in form.username.errors %}
         <div>{{ error }}</div>
         {% endfor %}
@@ -38,7 +38,7 @@
 
 <div class="form-check mb-3">
     {{ form.is_active(class="form-check-input") }}
-    {{ form.is_active.label(class="form-control") }}
+    {{ form.is_active.label(class="form-check-label ms-2") }}
 </div>
 
 <!-- password input -->

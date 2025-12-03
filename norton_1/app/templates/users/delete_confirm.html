@@ -1,4 +1,4 @@
-{% entends "layouts/base.html" %}
+{% extends "layouts/base.html" %}
 {% block title %}Delete User{% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
         </ul>
 
         <form method="post" action="{{ url_for('users.delete', user_id=user.id) }}">
-            {{ form.hidden_tags() }}
+            {{ form.hidden_tag() }}
             {{ form.submit(class="btn btn-danger") }}
             <a href="{{ url_for('users.index') }}" class="btn btn-secondary">Cancel</a>
         </form>

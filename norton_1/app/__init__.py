@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for
 from config import Config
-from extensions import db,csrf
+from extensions import db, csrf
 
 def create_app(config_class: type[Config] = Config):
 

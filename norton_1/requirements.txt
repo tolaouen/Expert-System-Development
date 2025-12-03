@@ -4,3 +4,4 @@ WTForms
 email-validator
 Werkzeug
 Flask-SQLAlchemy
+SQLAlchemy

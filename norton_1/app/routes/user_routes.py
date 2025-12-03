@@ -11,11 +11,11 @@ def index():
 
 @user_bp.route("/<int:user_id>")
 def detail(user_id: int):
-    users = UserService.get_by_id(user_id)
-    if users is None:
+    user = UserService.get_by_id(user_id)
+    if user is None:
         abort(404)
 
-    return render_template(url_for("users/detail.html", users = users))
+    return render_template("users/detail.html", user=user)
 
 @user_bp.route("/create", methods=["GET", "POST"])
 def create():
@@ -30,8 +30,8 @@ def create():
         password  = form.password.data
         user = UserService.create(data, password)
         flash(f"User '{user.username}' was created successfully.", "success")
-        return redirect(url_for("user.html"))
-    return render_template(url_for("users/create.html", form=form))
+        return redirect(url_for("users.detail", user_id=user.id))
+    return render_template("users/create.html", form=form)
 
 @user_bp.route("/<int:user_id>/edit", methods=["GET", "POST"])
 def edit(user_id: int):
@@ -53,7 +53,7 @@ def edit(user_id: int):
         flash(f"User '{user.username}' was updated succesfully.", "success")
         return redirect(url_for("users.detail", user_id = user.id))
         
-    return render_template(url_for("users/edit.html", form=form, user=user))
+    return render_template("users/edit.html", form=form, user=user)
 
 @user_bp.route("/<int:user_id>/delete", methods=["GET"])
 def delete_confirm(user_id: int):
@@ -62,10 +62,10 @@ def delete_confirm(user_id: int):
         abort(404)
     
     form = ComfirmDeleteForm()
-    return render_template(url_for("users/delete_form.html", user=user, form=form))
+    return render_template("users/delete_confirm.html", user=user, form=form)
 
-@user_bp.router("/<int:user_id>/delete", methods=["POST"])
-def deletd(user_id):
+@user_bp.route("/<int:user_id>/delete", methods=["POST"])
+def delete(user_id: int):
     user = UserService.get_by_id(user_id)
     if user is None:
         abort(404)
