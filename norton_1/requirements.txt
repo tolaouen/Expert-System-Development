@@ -5,3 +5,4 @@ email-validator
 Werkzeug
 Flask-SQLAlchemy
 SQLAlchemy
+Flask-Login

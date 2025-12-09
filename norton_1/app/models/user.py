@@ -1,10 +1,13 @@
 from datetime import datetime
 from werkzeug.security  import generate_password_hash, check_password_hash
-
+from flask_login import UserMixin
 from extensions import db
+from app.models.associations import user_roles
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -15,6 +18,8 @@ class User(db.Model):
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+
+    roles = db.relationship("Role", secondary=user_roles, back_populates="users")
 
 
     def set_password(self, password: str)-> None:
