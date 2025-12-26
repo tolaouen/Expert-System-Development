@@ -1,9 +1,10 @@
 import re
 from flask_wtf import FlaskForm
-from wtforms import  BooleanField, StringField, PasswordField, SubmitField
+from wtforms import  BooleanField, StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import Email, DataRequired, Length, EqualTo, ValidationError
 
-from app.models import User
+from app.models import User, Role
+
 from extensions import db
 
 
@@ -23,6 +24,16 @@ def strong_password(form, field):
 
     if not re.search(r'[!@#$%^&*]', field.data):
         raise ValidationError("Password must contain at least one special character.")
+    
+
+def _role_choice():
+    """Retur list a (id, name) turple for all rold, order by name."""
+    return [
+        (role.id, role.name)
+        for role in db.session.scalars(
+            db.select(Role).order_by(Role.name)
+        )
+    ]
 
 class UserCreateForm(FlaskForm):
     username = StringField(
@@ -44,6 +55,14 @@ class UserCreateForm(FlaskForm):
         "Is Active",
         default=True,
     )
+
+    role_id = SelectField(
+        "Role ID",
+        coerce=int,
+        validators=[DataRequired(), Length(min=3, max=120)],
+        render_kw={"placeholder": "Select Role"},
+    )
+
     password = PasswordField(
         "Password",
         validators=[DataRequired(), strong_password],
@@ -55,6 +74,11 @@ class UserCreateForm(FlaskForm):
         render_kw={"placeholder": "Confirm your password"},
     )
     submit = SubmitField("Save")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.role_id.choices = _role_choice()
+
 
     def validate_username(self, field):
         exists = db.session.scalar(
@@ -87,6 +111,12 @@ class UserEditForm(FlaskForm):
 
     is_active = BooleanField("Active")
 
+    role_id = SelectField(
+        "role_id",
+        coerce=int,
+        validators=[DataRequired()],
+    )
+
     password = PasswordField(
         "Password",
         validators=[strong_password],
@@ -102,6 +132,14 @@ class UserEditForm(FlaskForm):
     def __init__(self, original_user: User, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_user = original_user
+        self.role_id.choices = _role_choice()
+
+        if not self.is_submitted():
+            if original_user.roles:
+                self.original_user.data = original_user.roles[0].id
+            else:
+                self.role_id.data = None
+
 
     def validate_username(self, field):
         q = db.select(User).filter(User.username == field.data, User.id != self.original_user.id)
@@ -115,7 +153,7 @@ class UserEditForm(FlaskForm):
         if exists:
             raise ValidationError("This email is already registered")
 
-class ComfirmDeleteForm(FlaskForm):
+class ConfirmDeleteForm(FlaskForm):
     submit = SubmitField("Comfirm Delete")
     
 

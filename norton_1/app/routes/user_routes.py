@@ -1,6 +1,6 @@
 from flask import url_for, Blueprint, render_template, redirect, flash, abort
 from app.services.user_service import UserService
-from app.forms.user_forms import UserCreateForm, UserEditForm, ComfirmDeleteForm
+from app.forms.user_forms import UserCreateForm, UserEditForm, ConfirmDeleteForm
 
 user_bp = Blueprint("users", __name__, url_prefix="/users")
 
@@ -28,7 +28,8 @@ def create():
             "is_active": form.is_active.data
         }
         password  = form.password.data
-        user = UserService.create(data, password)
+        role_id = form.role_id.data or None
+        user = UserService.create(data, password, role_id)
         flash(f"User '{user.username}' was created successfully.", "success")
         return redirect(url_for("users.detail", user_id=user.id))
     return render_template("users/create.html", form=form)
@@ -49,7 +50,8 @@ def edit(user_id: int):
             "is_active": form.is_active.data
         }
         password = form.password.data or None
-        UserService.update(user, data, password)
+        role_id = form.role_id.data or None
+        UserService.update(user, data, password, role_id)
         flash(f"User '{user.username}' was updated succesfully.", "success")
         return redirect(url_for("users.detail", user_id = user.id))
         
@@ -59,9 +61,9 @@ def edit(user_id: int):
 def delete_confirm(user_id: int):
     user = UserService.get_by_id(user_id)
     if user is None:
-        abort(404)
+        abort(404, "User not found")
     
-    form = ComfirmDeleteForm()
+    form = ConfirmDeleteForm()
     return render_template("users/delete_confirm.html", user=user, form=form)
 
 @user_bp.route("/<int:user_id>/delete", methods=["POST"])

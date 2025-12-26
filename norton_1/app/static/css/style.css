@@ -1,5 +1,6 @@
 body {
-    background-color: white;
+    background: linear-gradient(blue, skyblue);
+    color: white;
 }
 
 main.container {
