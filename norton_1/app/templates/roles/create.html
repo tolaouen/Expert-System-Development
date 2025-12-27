@@ -1,0 +1,22 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Create Role{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 col-xl-7">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3 mb-0">Create Role</h1>
+            <a href="{{ url_for('tbl_roles.index') }}" class="btn btn-outline-secondary btn-sm">
+                🔙 Back To Roles
+            </a>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                {% include "roles/_form.html" %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

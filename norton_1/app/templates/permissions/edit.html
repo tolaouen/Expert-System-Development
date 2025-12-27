@@ -1,0 +1,8 @@
+{% extends "layouts/base.html" %}
+{% block title %}Edit Permission{% endblock %}
+
+{% block content %}
+    <h1 class="h3 mb-3">Edit Permission:{{ permission.code }}</h1>
+    {% include "permissions/_form.html" %}
+
+{% endblock %}

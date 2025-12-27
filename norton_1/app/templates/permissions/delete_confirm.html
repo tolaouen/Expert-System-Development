@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+{% block title %}Delete Confirm{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h5 class="mb-0">Confirm Delete</h5>
+            </div>
+            <div class="card-body">
+                <p>
+                    Are you sure you want to delete role
+                    <strong>{{ permission.code }}</strong> ({{ permission.name }})?
+                </p>
+
+                <form method="post">
+                    {{ form.hidden_tag() }}
+
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a href="{{ url_for('tbl_permissions.detail', permission_id=permission_id)}}" class="btn btn-secondary">
+                        Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

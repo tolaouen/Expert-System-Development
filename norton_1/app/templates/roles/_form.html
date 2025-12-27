@@ -1,0 +1,68 @@
+<form method="post">
+    {{ form.hidden_tag() }}
+
+    <!-- Role name -->
+     <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+        {% for error in form.name.errors %}
+        <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+     </div>
+
+     <!-- Description  -->
+
+     <div class="mb-3">
+        {{ form.description.label(class="form-label") }}
+        {{ form.description(class="form-control", rows=3) }}
+        {% for error in form.description.errors %}
+        <div class="text-danger small">{{ error }}</div>
+        {% endfor %}
+     </div>
+
+     <!-- Permission grouped by module -->
+
+     <div class="mb-3">
+            <label class="form-label">{{ form.permission_id.label.text }}</label>
+
+            {% if form.permission_by_module %}
+                {% for module_name, perms in form.permission_by_module.items() %}
+                <div class="border rounded p-2 mb-2">
+                    <div class="fw-bold small text-muted mb-1">
+                        {{ module_name }}
+                    </div>
+                
+
+                    {% for perm in perms %}
+                    <div class="form_check">
+                        <input 
+                            type="text"
+                            class="form-check-input"
+                            id="perm_{{ perm.id }}"
+                            name="{{ form.permission_id.name }}"
+                            value="{{ perm.id }}"
+                            {% if form.permission_id.data and perm.id in form.permission_id.data %}checked{% endif %}
+                        >
+                        <label class="form-check-input" for="perm_{{ perm.id }}">
+                            <strong>{{ perm.code }}</strong> - {{ perm.name }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-muted small">No permissions defined yet.</p>
+            {% endif %}
+
+            {% for error in form.permission_id.errors %}
+            <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+     </div>
+
+     <!-- Button Field -->
+      <div class="d-flex justify-content-between mt-3">
+        {{ form.submi(class="btn btn-primary") }}
+        <a href="{{ url_for('tbl_roles.index') }}" class="btn btn-primary">Cancel</a>
+      </div>
+
+</form>

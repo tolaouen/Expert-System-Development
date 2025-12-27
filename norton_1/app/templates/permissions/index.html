@@ -1,0 +1,41 @@
+{% extends "layouts/base.html" %}
+{% block title %}Permissions{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Permission</h1>
+    <a href="{{ url_for('tbl_permissions.create') }}" class="btn btn-primary">Create Permission</a>
+</div>
+
+{% if permissions %}
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Module</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for perm in permissions %}
+        <tr>
+            <td>
+                <a href="{{ url_for('tbl_permissions.detail', permission_id=perm_id)}}">
+                    {{ perm.code }}
+                </a>
+            </td>
+            <td>{{ perm.name }}</td>
+            <td>{{ perm.module }}</td>
+            <td class="text-end">
+                <a href="{{ url_for('tbl_permissions.edit', permission_id=perm_id)}}" class="btn btn-warning btm-sm">✍️</a>
+                <a href="{{ url_for('tbl_permissions.delete_confirm', permission_id=perm_id)}}" class="btn btn-danger btn-sm">🗑️</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted small">No Permission defined yet.</p>
+{% endif %}
+{% endblock %}
