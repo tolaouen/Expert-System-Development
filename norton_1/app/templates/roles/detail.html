@@ -11,15 +11,15 @@
     </div>
     <div class="text-end">
         <!-- Edit -->
-        <a href="{{ url_for('tbl_roles.edit', role_id=role_id) }}" class="btn btn-warning">
+        <a href="{{ url_for('roles.edit', role_id=role_id) }}" class="btn btn-warning">
             Edit
         </a>
         <!-- Delete -->
-        <a href="{{ url_for('tbl_roles.delete_confirm', role_id=role_id)}}" class="btn btn-danger">
+        <a href="{{ url_for('roles.delete_confirm', role_id=role_id)}}" class="btn btn-danger">
             Delete
         </a>
         <!-- Back -->
-         <a href="{{ url_for('tbl_roles.index')}}" class="btn btn-secondary">
+         <a href="{{ url_for('roles.index')}}" class="btn btn-secondary">
             Back
          </a>
     </div>
@@ -55,7 +55,7 @@
                                 <span class="badge bg-primary me-2">{{ perm.module }}</span>
                                 <strong>{{ perm.code}}</strong>- {{ perm.name}}
                             </div>
-                            <a href="{{ url_for('tbl_permissions.detail', permission_id=perm_id)}}" class="btn btn-sm btn-outline-primary">
+                            <a href="{{ url_for('permissions.detail', permission_id=perm_id)}}" class="btn btn-sm btn-outline-primary">
                                 View
                             </a>
                         </div>

@@ -29,8 +29,8 @@ base.html
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- User -->
                     <li class="nav-item">
-                        <a class="nav-link {% if request.blueprint == 'tbl_users' %}Active{% endif %}"
-                           href="{{ url_for('tbl_users.index') }}"
+                        <a class="nav-link {% if request.blueprint == 'users' %}active{% endif %}"
+                           href="{{ url_for('users.index') }}"
                         >
                             User
                         </a>
@@ -38,8 +38,8 @@ base.html
 
                     <!-- Role -->
                     <li class="nav-item">
-                        <a class="nav-link {% if request.blueprint == 'tbl_roles' %}Active{% endif %}"
-                           href="{{ url_for('tbl_roles.index') }}"
+                        <a class="nav-link {% if request.blueprint == 'roles' %}active{% endif %}"
+                           href="{{ url_for('roles.index') }}"
                         >
                             Role
                         </a>
@@ -47,8 +47,8 @@ base.html
 
                     <!-- Permission -->
                     <li class="nav-item">
-                        <a class="nav-link {% if request.blueprint == 'tbl_permissions' %}Active{% endif %}"
-                           href="{{ url_for('tbl_permissions.index') }}"
+                        <a class="nav-link {% if request.blueprint == 'permissions' %}active{% endif %}"
+                           href="{{ url_for('permissions.index') }}"
                         >
                             Permission
                         </a>

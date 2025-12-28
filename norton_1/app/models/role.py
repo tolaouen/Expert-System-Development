@@ -2,7 +2,7 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db
 from app.models.associations import user_roles
-from app.models.permission import role_permissions
+from app.models.associations import role_permissions
 
 class Role(db.Model):
     __tablename__ = "roles"

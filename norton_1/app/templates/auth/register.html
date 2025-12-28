@@ -1,4 +1,4 @@
-{% entends "layouts/base.html" %}
+{% extends "layouts/base.html" %}
 
 {% block title %}Sign Up{% endblock %}
 
@@ -27,10 +27,24 @@
                             required
                         >
                     </div>
-                    <div class="=mb-3">
-                        <label for="email" class="form-label">Email</label>
+                    
+                    <div class="mb-3">
+                        <label for="full_name" class="form-label">Full Name</label>
                         <input 
                             type="text"
+                            class="form-control"
+                            id="full_name"
+                            name="full_name"
+                            placeholder="Your Full Name"
+                            value="{{ full_name or '' }}"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input 
+                            type="email"
                             class="form-control"
                             id="email"
                             name="email"
@@ -40,27 +54,26 @@
                         >
                     </div>
                     
-                    <div class="=mb-3">
+                    <div class="mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input 
-                            type="text"
+                            type="password"
                             class="form-control"
                             id="password"
                             name="password"
                             placeholder="Your Password"
-                            value="{{ password or '' }}"
                             required
                         >
                     </div>
                     
-                    <div class="=mb-3">
+                    <div class="mb-3">
                         <label for="confirm_password" class="form-label">Confirm Password</label>
                         <input 
-                            type="text"
+                            type="password"
                             class="form-control"
                             id="confirm_password"
                             name="confirm_password"
-                            placeholder="Re Your Password"
+                            placeholder="Confirm Your Password"
                             required
                         >
                     </div>
@@ -72,7 +85,7 @@
 
                 <hr>
                 <p class="mb-0 small text-center">
-                    Aready have an account?
+                    Already have an account?
                     <a href="{{ url_for('auth.login') }}">Log in</a>
                 </p>
             </div>

@@ -6,9 +6,9 @@
     <h1 class="h3 mb-0">Permission:{{ permission.code }}</h1>
 
     <div>
-        <a href="{{ url_for('tbl_permissions.edit', permission_id=permission_id)}}" class="btn btn-warning">Edit</a>
-        <a href="{{ url_for('tbl_permissions.delete_confirm', permission_id=permission_id)}}" class="btn btn-danger">Delete</a>
-        <a href="{{ url_for('tbl_permissions.index')}}" class="btn btn-secodary">Back</a>
+        <a href="{{ url_for('permissions.edit', permission_id=permission_id)}}" class="btn btn-warning">Edit</a>
+        <a href="{{ url_for('permissions.delete_confirm', permission_id=permission_id)}}" class="btn btn-danger">Delete</a>
+        <a href="{{ url_for('permissions.index')}}" class="btn btn-secodary">Back</a>
     </div>
 </div>
 
