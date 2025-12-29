@@ -25,9 +25,9 @@ class ServiceRole:
             description=data.get("description") or ""
         )
 
-        if permission_id is None:
+        if permission_id:
             permissions = db.session.scalars (
-                db.select(Permission).filter(Permission.id.in_(permission_id)).all()
+                db.select(Permission).filter(Permission.id.in_(permission_id))
             )
             role.permissions = list(permissions)
 
@@ -42,12 +42,12 @@ class ServiceRole:
         role.name = data["name"]
         role.description = data.get("description") or ""
 
-        if permission_id is None:
-            perms = List[Permission] = []
+        if permission_id:
+            perms: List[Permission] = []
             if permission_id:
                 perms = db.session.scalars(
 
-                    db.select(Permission).filter(Permission.id.in_(permission_id)).all()
+                    db.select(Permission).filter(Permission.id.in_(permission_id))
                 )
             role.permissions = list(perms)
 

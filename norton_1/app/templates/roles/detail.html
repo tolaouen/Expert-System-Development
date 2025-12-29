@@ -10,12 +10,11 @@
         </p>
     </div>
     <div class="text-end">
-        <!-- Edit -->
-        <a href="{{ url_for('roles.edit', role_id=role_id) }}" class="btn btn-warning">
+        <a href="{{ url_for('roles.edit', role_id=role.id) }}" class="btn btn-warning">
             Edit
         </a>
         <!-- Delete -->
-        <a href="{{ url_for('roles.delete_confirm', role_id=role_id)}}" class="btn btn-danger">
+        <a href="{{ url_for('roles.delete_confirm', role_id=role.id)}}" class="btn btn-danger">
             Delete
         </a>
         <!-- Back -->

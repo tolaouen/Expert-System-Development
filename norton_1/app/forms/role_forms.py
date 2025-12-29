@@ -63,8 +63,8 @@ class RoleCreateForm(FlaskForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.permission_id.choices = _permission_choice
-        self.permission_by_module = _permissions_group_by_module
+        self.permission_id.choices = _permission_choice()
+        self.permission_by_module = _permissions_group_by_module()
 
     def validate_name(self, field):
         exists = db.session.scalars(
@@ -94,11 +94,11 @@ class RoleEditForm(FlaskForm):
     def __init__(self, original_role: Role, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.original_role = original_role
-        self.permission_id.choices = _permission_choice
-        self.permission_by_module = _permissions_group_by_module
+        self.permission_id.choices = _permission_choice()
+        self.permission_by_module = _permissions_group_by_module()
 
         if not self.is_submitted():
-            self.permission_id.data = [p.id for p in original_role.Permission]
+            self.permission_id.data = [p.id for p in original_role.permissions]
 
     def validate_name(self, field):
         q = db.select(Role).filter(Role.name == field.data, Role.id != self.original_role.id)

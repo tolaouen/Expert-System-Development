@@ -22,7 +22,7 @@
         {% for role in roles %}
         <tr>
             <td>
-                <a href="{{ url_for('roles.detail', role_id=role_id) }}">
+                <a href="{{ url_for('roles.detail', role_id=role.id) }}">
                     {{ role.name }}
                 </a>
             </td>
@@ -37,8 +37,8 @@
                 {% endif %}
             </td>
             <td class="text-end">
-                <a href="{{ url_for('roles.edit', role_id=role_id)}}" class="btn btn-sm btn-warning">✍️</a>
-                <a href="{{ url_for('roles.delete_confirm', role_id=role_id)}}" class="btn btn-sm btn-danger">🗑️</a>
+                <a href="{{ url_for('roles.edit', role_id=role.id)}}" class="btn btn-sm btn-warning">✍️</a>
+                <a href="{{ url_for('roles.delete_confirm', role_id=role.id)}}" class="btn btn-sm btn-danger">🗑️</a>
             </td>
         </tr>
         {% endfor %}
