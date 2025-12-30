@@ -20,7 +20,7 @@ def detail(permission_id: int):
     if permission is None:
         abort(404)
 
-    return render_template("permissions/detail.html")
+    return render_template("permissions/detail.html", permission=permission)
 
 @permission_bp.route("/create", methods=["GET", "POST"])
 @login_required

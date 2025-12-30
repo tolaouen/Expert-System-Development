@@ -67,7 +67,7 @@ class RoleCreateForm(FlaskForm):
         self.permission_by_module = _permissions_group_by_module()
 
     def validate_name(self, field):
-        exists = db.session.scalars(
+        exists = db.session.scalar(
             db.select(Role).filter(Role.name == field.data)
         )
 
@@ -103,7 +103,7 @@ class RoleEditForm(FlaskForm):
     def validate_name(self, field):
         q = db.select(Role).filter(Role.name == field.data, Role.id != self.original_role.id)
         
-        exists = db.session.scalars(q)
+        exists = db.session.scalar(q)
 
         if exists:
             raise ValidationError("This role is already taken.")
